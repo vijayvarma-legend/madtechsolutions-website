@@ -72,7 +72,11 @@ const services = [
 
 /* Individual card with image bg + premium hover */
 function ServiceCard({ service, index }) {
-  const [hovered, setHovered] = useState(false)
+  // On touch devices there's no hover — always show content
+  const isTouch = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches
+  const [hovered, setHovered] = useState(isTouch)
+
+  const show = hovered // alias for readability
 
   return (
     <motion.div
@@ -80,24 +84,24 @@ function ServiceCard({ service, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
+      onHoverStart={() => !isTouch && setHovered(true)}
+      onHoverEnd={() => !isTouch && setHovered(false)}
       className="group relative rounded-3xl overflow-hidden cursor-pointer"
-      style={{ aspectRatio: '4/5' }}
-      whileHover={{ y: -8, scale: 1.02 }}
+      style={{ aspectRatio: isTouch ? '3/4' : '4/5' }}
+      whileHover={!isTouch ? { y: -8, scale: 1.02 } : {}}
     >
       {/* ── Background image ── */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${service.image})` }}
-        animate={{ scale: hovered ? 1.08 : 1 }}
+        animate={{ scale: show ? 1.08 : 1 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       />
 
       {/* ── Dark gradient overlay ── */}
       <div className="absolute inset-0"
         style={{
-          background: hovered
+          background: show
             ? `linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.2) 100%)`
             : `linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.1) 100%)`,
           transition: 'background 0.5s ease',
@@ -107,7 +111,7 @@ function ServiceCard({ service, index }) {
       {/* ── Color accent overlay on hover ── */}
       <motion.div
         className="absolute inset-0"
-        animate={{ opacity: hovered ? 0.15 : 0 }}
+        animate={{ opacity: show ? 0.15 : 0 }}
         transition={{ duration: 0.5 }}
         style={{ background: `radial-gradient(ellipse at bottom left, ${service.color}, transparent 70%)` }}
       />
@@ -116,18 +120,18 @@ function ServiceCard({ service, index }) {
       <motion.div
         className="absolute top-0 left-0 right-0 h-[2px]"
         style={{ background: `linear-gradient(90deg, transparent, ${service.color}, transparent)` }}
-        animate={{ opacity: hovered ? 1 : 0, scaleX: hovered ? 1 : 0 }}
+        animate={{ opacity: show ? 1 : 0, scaleX: show ? 1 : 0 }}
         transition={{ duration: 0.4 }}
       />
 
       {/* ── Content ── */}
       <div className="absolute inset-0 flex flex-col justify-end p-6">
 
-        {/* Icon — slides up on hover */}
+        {/* Icon */}
         <motion.div
           className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 text-white"
           style={{ background: `${service.color}cc`, border: `1px solid ${service.color}66` }}
-          animate={{ y: hovered ? 0 : 4, opacity: hovered ? 1 : 0.85 }}
+          animate={{ y: show ? 0 : 4, opacity: show ? 1 : 0.85 }}
           transition={{ duration: 0.4 }}
         >
           {service.icon}
@@ -138,10 +142,10 @@ function ServiceCard({ service, index }) {
           {service.title}
         </h3>
 
-        {/* Description — reveals on hover */}
+        {/* Description — reveals on hover / always on mobile */}
         <motion.p
           className="text-sm text-white/80 leading-relaxed"
-          animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 12, height: hovered ? 'auto' : 0 }}
+          animate={{ opacity: show ? 1 : 0, y: show ? 0 : 12, height: show ? 'auto' : 0 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           style={{ overflow: 'hidden' }}
         >
@@ -151,7 +155,7 @@ function ServiceCard({ service, index }) {
         {/* Tags */}
         <motion.div
           className="flex flex-wrap gap-1.5 mt-3"
-          animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
+          animate={{ opacity: show ? 1 : 0, y: show ? 0 : 8 }}
           transition={{ duration: 0.4, delay: 0.05 }}
         >
           {service.tags.map((tag) => (
@@ -166,14 +170,14 @@ function ServiceCard({ service, index }) {
         {/* Explore arrow */}
         <motion.div
           className="flex items-center gap-2 mt-4 text-white text-xs font-bold"
-          animate={{ opacity: hovered ? 1 : 0, x: hovered ? 0 : -8 }}
+          animate={{ opacity: show ? 1 : 0, x: show ? 0 : -8 }}
           transition={{ duration: 0.35, delay: 0.08 }}
         >
           <span>Explore Service</span>
           <motion.svg
             className="w-4 h-4"
             fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
-            animate={{ x: hovered ? 4 : 0 }}
+            animate={{ x: show ? 4 : 0 }}
             transition={{ duration: 0.3 }}
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />

@@ -66,15 +66,16 @@ const projects = [
 ]
 
 function ProjectCard({ project, index }) {
-  const [hovered, setHovered] = useState(false)
+  const isTouch = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches
+  const [hovered, setHovered] = useState(isTouch)
 
   return (
     <motion.div
       variants={cardVariant}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
+      onHoverStart={() => !isTouch && setHovered(true)}
+      onHoverEnd={() => !isTouch && setHovered(false)}
       className="group relative rounded-2xl overflow-hidden cursor-pointer"
-      whileHover={{ y: -4 }}
+      whileHover={!isTouch ? { y: -4 } : {}}
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
       {/* Visual block */}
@@ -90,8 +91,7 @@ function ProjectCard({ project, index }) {
               top: '10%',
               right: '10%',
             }}
-            animate={hovered ? { scale: 1.3, opacity: 0.35 } : { scale: 1, opacity: 0.2 }}
-            transition={{ duration: 0.6 }}
+            animate={hovered ? { scale: 1.3, opacity: 0.35 } : { scale: 1, opacity: 0.2 }}            transition={{ duration: 0.6 }}
           />
           <motion.div
             className="absolute rounded-full opacity-10"
@@ -133,7 +133,7 @@ function ProjectCard({ project, index }) {
           </div>
         </div>
 
-        {/* Hover overlay */}
+        {/* Overlay — always visible on touch, hover-reveal on desktop */}
         <AnimatePresence>
           {hovered && (
             <motion.div
@@ -183,7 +183,7 @@ function ProjectCard({ project, index }) {
             <p className="text-xs text-slate-400 mt-0.5 font-medium">{project.category}</p>
           </div>
           <motion.div
-            animate={hovered ? { x: 0, opacity: 1 } : { x: -4, opacity: 0 }}
+            animate={hovered ? { x: 0, opacity: 1 } : { x: -4, opacity: isTouch ? 1 : 0 }}
             className="text-blue-400"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
