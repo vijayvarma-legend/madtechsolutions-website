@@ -5,69 +5,96 @@ import { stagger as staggerContainer, cardItem as cardVariant, fadeInUp } from '
 const projects = [
   {
     id: 1,
-    title: 'NexaBank',
-    category: 'FinTech Platform',
-    description: 'A complete digital banking suite with real-time analytics, AI fraud detection, and seamless UX for 200k+ users.',
-    tags: ['React', 'Node.js', 'AI/ML', 'PostgreSQL'],
-    gradient: 'from-violet-950 via-indigo-900 to-slate-950',
-    accent: '#818cf8',
+    title: 'The Grand Table',
+    category: 'Restaurant Website',
+    description: 'Elegant restaurant website with online reservations, menu showcase, and immersive food photography layout to drive footfall.',
+    tags: ['HTML/CSS', 'JavaScript', 'Responsive', 'UI/UX'],
+    gradient: 'from-amber-950 via-orange-900 to-stone-950',
+    accent: '#f59e0b',
     year: '2024',
+    url: 'https://madhukunchalaa.github.io/busin/restaurant/index.html',
+    image: 'restaurant.png',
   },
   {
     id: 2,
-    title: 'LuxeCommerce',
-    category: 'E-Commerce',
-    description: 'Premium fashion e-commerce with AR try-on, AI recommendations, and a headless CMS powering 5M monthly visits.',
-    tags: ['Next.js', 'Shopify', 'AR', 'Tailwind'],
-    gradient: 'from-stone-950 via-amber-950 to-stone-950',
-    accent: '#d97706',
+    title: 'Glam Studio',
+    category: 'Salon & Beauty',
+    description: 'Premium salon brand website featuring service menus, stylist profiles, booking integration, and a luxe aesthetic.',
+    tags: ['HTML/CSS', 'JavaScript', 'Animations', 'Booking'],
+    gradient: 'from-rose-950 via-pink-900 to-slate-950',
+    accent: '#fb7185',
     year: '2024',
+    url: 'https://madhukunchalaa.github.io/busin/salon/index.html',
+    image: 'salon.png',
   },
   {
     id: 3,
-    title: 'MindAI',
-    category: 'AI SaaS',
-    description: 'GPT-4 powered workspace assistant that reduced operational time by 60% for enterprise clients across 12 countries.',
-    tags: ['GPT-4', 'Python', 'LangChain', 'React'],
-    gradient: 'from-emerald-950 via-teal-900 to-slate-950',
-    accent: '#34d399',
+    title: 'Villart',
+    category: 'Creative Portfolio',
+    description: 'Artistic portfolio website with dynamic galleries, smooth scroll transitions, and a bold visual identity for a creative studio.',
+    tags: ['React', 'Animations', 'Portfolio', 'Creative'],
+    gradient: 'from-violet-950 via-indigo-900 to-slate-950',
+    accent: '#818cf8',
     year: '2024',
+    url: 'https://madhukunchalaa.github.io/villart/',
+    image: 'villart.png',
   },
   {
     id: 4,
-    title: 'HealthFlow',
-    category: 'Healthcare App',
-    description: 'End-to-end telemedicine platform with EHR integration, appointment booking, and live consultation for 50+ clinics.',
-    tags: ['Flutter', 'Firebase', 'WebRTC', 'Node.js'],
-    gradient: 'from-blue-950 via-indigo-950 to-slate-950',
-    accent: '#60a5fa',
-    year: '2023',
+    title: 'Organic Co.',
+    category: 'E-Commerce / Brand',
+    description: 'Clean eco-brand website for an organic products company, featuring product catalogue, sustainability story, and checkout flow.',
+    tags: ['HTML/CSS', 'JavaScript', 'E-Commerce', 'Branding'],
+    gradient: 'from-emerald-950 via-teal-900 to-slate-950',
+    accent: '#34d399',
+    year: '2024',
+    url: 'https://madhukunchalaa.github.io/organic-project/',
+    image: 'organic.png',
   },
   {
     id: 5,
-    title: 'GrowthLab',
-    category: 'Marketing Platform',
-    description: 'All-in-one growth dashboard combining paid ads, email, social, and SEO analytics with AI-driven insights.',
-    tags: ['React', 'D3.js', 'Python', 'BigQuery'],
-    gradient: 'from-rose-950 via-pink-900 to-slate-950',
-    accent: '#fb7185',
-    year: '2023',
+    title: 'Shoot Site',
+    category: 'Photography Studio',
+    description: 'Professional photography studio website with fullscreen gallery, cinematic hero sections, and enquiry form for bookings.',
+    tags: ['HTML/CSS', 'Gallery', 'Photography', 'UI/UX'],
+    gradient: 'from-slate-950 via-zinc-900 to-stone-950',
+    accent: '#94a3b8',
+    year: '2024',
+    url: 'https://madhukunchalaa.github.io/Shoot-SIte/index.html',
+    image: 'shoot.png',
   },
   {
     id: 6,
-    title: 'CloudSuite',
-    category: 'B2B SaaS',
-    description: 'Enterprise resource planning SaaS with multi-tenant architecture, real-time collaboration, and advanced reporting.',
-    tags: ['Next.js', 'TypeScript', 'AWS', 'Postgres'],
+    title: 'Shaik & Reddy Associates',
+    category: 'Legal / Corporate',
+    description: 'Professional law firm website with practice area pages, attorney profiles, and a trust-first design to convert potential clients.',
+    tags: ['React', 'Corporate', 'SEO', 'Responsive'],
+    gradient: 'from-blue-950 via-indigo-950 to-slate-950',
+    accent: '#60a5fa',
+    year: '2025',
+    url: 'https://shaikandreddyassociates.com/',
+    image: 'shaik.png',
+  },
+  {
+    id: 7,
+    title: 'Kriss Magic',
+    category: 'Entertainment / Events',
+    description: 'Vibrant event & entertainment brand website with bold typography, performance highlights, and booking call-to-action.',
+    tags: ['React', 'Animations', 'Events', 'Branding'],
     gradient: 'from-orange-950 via-amber-900 to-slate-950',
     accent: '#fb923c',
-    year: '2023',
+    year: '2025',
+    url: 'https://vijayvarma-legend.github.io/krissmagicc-website/',
+    image: 'kriss.png',
   },
 ]
 
-function ProjectCard({ project, index }) {
+function ProjectCard({ project }) {
   const isTouch = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches
   const [hovered, setHovered] = useState(isTouch)
+  const [imgError, setImgError] = useState(false)
+
+  const screenshotUrl = `/portfolio/${project.image}`
 
   return (
     <motion.div
@@ -77,71 +104,50 @@ function ProjectCard({ project, index }) {
       className="group relative rounded-2xl overflow-hidden cursor-pointer"
       whileHover={!isTouch ? { y: -4 } : {}}
       transition={{ duration: 0.3, ease: 'easeOut' }}
+      onClick={() => window.open(project.url, '_blank', 'noopener,noreferrer')}
     >
-      {/* Visual block */}
-      <div className={`relative w-full aspect-[4/3] bg-gradient-to-br ${project.gradient} overflow-hidden`}>
-        {/* Abstract geometric shapes inside card */}
-        <div className="absolute inset-0">
-          <motion.div
-            className="absolute rounded-full opacity-20"
-            style={{
-              width: 200,
-              height: 200,
-              background: `radial-gradient(circle, ${project.accent}40, transparent 70%)`,
-              top: '10%',
-              right: '10%',
-            }}
-            animate={hovered ? { scale: 1.3, opacity: 0.35 } : { scale: 1, opacity: 0.2 }}            transition={{ duration: 0.6 }}
-          />
-          <motion.div
-            className="absolute rounded-full opacity-10"
-            style={{
-              width: 120,
-              height: 120,
-              background: `radial-gradient(circle, ${project.accent}60, transparent 70%)`,
-              bottom: '20%',
-              left: '15%',
-            }}
-            animate={hovered ? { scale: 1.2, opacity: 0.2 } : { scale: 1, opacity: 0.1 }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-          />
-        </div>
-
-        {/* Grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-          }}
-        />
-
-        {/* Faux browser chrome or UI mockup lines */}
-        <div className="absolute top-6 left-6 right-6">
-          <div className="h-8 rounded-lg bg-white/5 border border-white/10 flex items-center px-3 gap-2">
-            <div className="flex gap-1.5">
-              {[0,1,2].map(d => (
-                <div key={d} className="w-2.5 h-2.5 rounded-full bg-white/15" />
-              ))}
-            </div>
-            <div className="flex-1 h-3 rounded-full bg-white/8" />
+      {/* Browser chrome + screenshot */}
+      <div className="relative w-full aspect-[4/3] overflow-hidden bg-slate-100">
+        {/* Browser bar */}
+        <div className="absolute top-0 left-0 right-0 z-10 h-8 bg-slate-200/90 backdrop-blur-sm flex items-center px-3 gap-2 border-b border-slate-300/60">
+          <div className="flex gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
+            <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/70" />
+            <div className="w-2.5 h-2.5 rounded-full bg-green-400/70" />
           </div>
-          <div className="mt-3 space-y-2">
-            <div className="h-3 w-3/5 rounded bg-white/8" />
-            <div className="h-3 w-4/5 rounded bg-white/5" />
-            <div className="h-3 w-2/5 rounded bg-white/5" />
+          <div className="flex-1 h-4 rounded-full bg-white/80 border border-slate-300/60 flex items-center px-2">
+            <span className="text-[8px] text-slate-400 truncate">{project.url.replace('https://', '')}</span>
           </div>
         </div>
 
-        {/* Overlay — always visible on touch, hover-reveal on desktop */}
+        {/* Screenshot image */}
+        {!imgError ? (
+          <motion.img
+            src={screenshotUrl}
+            alt={project.title}
+            onError={() => setImgError(true)}
+            className="absolute inset-0 w-full h-full object-cover object-top"
+            style={{ paddingTop: '2rem' }}
+            animate={hovered ? { scale: 1.04 } : { scale: 1 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+          />
+        ) : (
+          /* Fallback gradient if screenshot fails */
+          <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} flex items-center justify-center`} style={{ paddingTop: '2rem' }}>
+            <span className="text-2xl font-black text-white/20 tracking-tight">{project.title}</span>
+          </div>
+        )}
+
+        {/* Hover overlay */}
         <AnimatePresence>
           {hovered && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="absolute inset-0 bg-[#080808]/80 backdrop-blur-sm flex flex-col justify-end p-6"
+              transition={{ duration: 0.25 }}
+              className="absolute inset-0 bg-[#080808]/80 backdrop-blur-[2px] flex flex-col justify-end p-6"
+              style={{ paddingTop: '2rem' }}
             >
               <p className="text-sm text-zinc-300 leading-relaxed mb-4">
                 {project.description}
@@ -157,18 +163,27 @@ function ProjectCard({ project, index }) {
                   </span>
                 ))}
               </div>
-              <div className="mt-5 inline-flex items-center gap-2 text-white text-xs font-semibold group">
-                <span>View Case Study</span>
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex items-center gap-2 text-white text-xs font-semibold hover:text-blue-300 transition-colors group"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <span>Visit Live Site</span>
                 <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </div>
+              </a>
             </motion.div>
           )}
         </AnimatePresence>
 
         {/* Year badge */}
-        <div className="absolute top-4 right-4 text-[10px] font-bold tracking-widest text-white/30 uppercase">
+        <div
+          className="absolute top-10 right-3 z-10 text-[9px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full"
+          style={{ background: `${project.accent}22`, color: project.accent, border: `1px solid ${project.accent}40` }}
+        >
           {project.year}
         </div>
       </div>
@@ -210,16 +225,16 @@ export default function Portfolio() {
         >
           <motion.div variants={fadeInUp} className="section-label mb-5">
             <span className="w-5 h-px bg-blue-500" />
-            Featured Work
+            Our Work
           </motion.div>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <motion.h2
               variants={fadeInUp}
               className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-900"
             >
-              Projects That
+              Real Projects,
               <br />
-              <span className="gold-gradient-text">Made Impact</span>
+              <span className="gold-gradient-text">Real Results</span>
             </motion.h2>
             <motion.a
               variants={fadeInUp}
@@ -243,8 +258,8 @@ export default function Portfolio() {
           variants={staggerContainer}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
         >
-          {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} />
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
           ))}
         </motion.div>
       </div>
